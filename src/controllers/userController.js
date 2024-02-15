@@ -15,3 +15,16 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.getUserProfile = async (req, res) => {
+  try {
+    // Extract user information from request object (after authentication)
+    const { username, email, role } = req.user;
+
+    // Send user information as response
+    res.status(200).json({ username, email, role });
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

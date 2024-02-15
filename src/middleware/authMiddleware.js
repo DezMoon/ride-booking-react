@@ -1,19 +1,23 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+// middleware/authMiddleware.js
 
-// Middleware to authenticate user requests
+const jwt = require("jsonwebtoken");
+
 exports.authenticateUser = (req, res, next) => {
-  const token = req.header("Authorization");
+  // Check if user is authenticated (e.g., by verifying JWT token)
+  // Example: Verify JWT token from request headers
+
+  const token = req.headers.authorization;
+
   if (!token) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
-    req.user = decoded; // Attach decoded user data to request object
+    const decoded = jwt.verify(token, "your-secret-key");
+    req.user = decoded.user;
     next();
   } catch (error) {
-    console.error(error);
-    res.status(401).json({ error: "Unauthorized" });
+    console.error("Error authenticating user:", error);
+    return res.status(401).json({ error: "Unauthorized" });
   }
 };
