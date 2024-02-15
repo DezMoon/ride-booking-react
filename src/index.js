@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
+const tripRoutes = require("./routes/tripRoutes");
+const { handleErrors } = require("./middleware/errorMiddleware");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,7 +28,10 @@ app.use(cors());
 
 // Routes
 app.use("/api/users", userRoutes);
-// Add other routes as needed
+app.use("/api/trips", tripRoutes);
+
+// Error handling middleware
+app.use(handleErrors);
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
