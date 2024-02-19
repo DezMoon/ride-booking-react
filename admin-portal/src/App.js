@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import DashboardPage from "./pages/Dashboard";
 import UserListPage from "./pages/UserList";
@@ -11,14 +11,14 @@ function App() {
   return (
     <Router>
       <Layout>
-        <Switch>
-          <Route path="/dashboard" exact component={DashboardPage} />
-          <Route path="/users" exact component={UserListPage} />
-          <Route path="/trips" exact component={TripListPage} />
-          <Route path="/add-user" exact component={AddUserPage} />
-          <Route path="/settings" exact component={SettingsPage} />
+        <Routes>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/users" element={<UserListPage />} />
+          <Route path="/trips" element={<TripListPage />} />
+          <Route path="/add-user" element={<AddUserPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           {/* Add other routes as needed */}
-        </Switch>
+        </Routes>
       </Layout>
     </Router>
   );

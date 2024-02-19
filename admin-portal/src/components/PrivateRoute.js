@@ -1,15 +1,14 @@
 // src/components/PrivateRoute.js
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { isAuthenticated } from "../services/authService";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isAuthenticated = localStorage.getItem("accessToken");
-
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+        isAuthenticated() ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

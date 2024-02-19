@@ -10,3 +10,13 @@ export const login = async (credentials) => {
     throw error.response.data;
   }
 };
+
+export const logout = () => {
+  // Clear user authentication data from local storage
+  localStorage.removeItem("accessToken");
+};
+
+export const isAuthenticated = () => {
+  // Check if user is authenticated
+  return localStorage.getItem("accessToken") !== null;
+};

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -24,6 +25,9 @@ const UserList = () => {
           <li key={user._id}>{user.username}</li>
         ))}
       </ul>
+      <Link to="/add-user" className="btn btn-primary">
+        Add User
+      </Link>
     </div>
   );
 };

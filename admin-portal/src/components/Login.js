@@ -20,7 +20,7 @@ const Login = () => {
     try {
       const { accessToken } = await login(credentials);
       localStorage.setItem("accessToken", accessToken);
-      history.push("/users");
+      history.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
       // Add error message
