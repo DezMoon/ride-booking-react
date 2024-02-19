@@ -1,6 +1,5 @@
-// src/components/Login.js
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Use useNavigate instead
 import { login } from "../services/authService";
 
 const Login = () => {
@@ -8,7 +7,7 @@ const Login = () => {
     username: "",
     password: "",
   });
-  const history = useHistory();
+  const navigate = useNavigate(); // Utilize useNavigate hook
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,8 +18,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const { accessToken } = await login(credentials);
-      localStorage.setItem("accessToken", accessToken);
-      history.push("/dashboard");
+      localStorage.setItem("accessToken", accessToken); // Store token
+      navigate("/dashboard"); // Use navigate to redirect
     } catch (error) {
       console.error("Login failed:", error);
       // Add error message

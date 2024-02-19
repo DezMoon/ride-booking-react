@@ -56,3 +56,13 @@ exports.getTripHistory = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.getTripCount = async (req, res) => {
+  try {
+    const count = await Trip.countDocuments(); // Count the total number of trips
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error("Error fetching Trip count:", error);
+    res.status(500).json({ error: "Failed to fetch Trip count" });
+  }
+};

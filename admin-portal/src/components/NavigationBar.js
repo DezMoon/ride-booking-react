@@ -1,9 +1,21 @@
-// src/components/NavigationBar.js
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../services/authService"; // Import the logout function
 import "./NavigationBar.css";
 
 const NavigationBar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // Call the logout function
+      navigate("/login"); // Redirect to the login page after logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+      // Handle error logging out
+    }
+  };
+
   return (
     <nav className="sidebar">
       <ul>
@@ -18,6 +30,10 @@ const NavigationBar = () => {
         </li>
         <li>
           <Link to="/settings">Settings</Link>
+        </li>
+        <li>
+          <button onClick={handleLogout}>Logout</button>{" "}
+          {/* Add Logout button */}
         </li>
       </ul>
     </nav>

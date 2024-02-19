@@ -53,3 +53,23 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find(); // Retrieve all users from the database
+    res.status(200).json(users); // Send the users as a JSON response
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
+};
+
+exports.getUserCount = async (req, res) => {
+  try {
+    const count = await User.countDocuments(); // Count the total number of users
+    res.status(200).json({ count });
+  } catch (error) {
+    console.error("Error fetching user count:", error);
+    res.status(500).json({ error: "Failed to fetch user count" });
+  }
+};

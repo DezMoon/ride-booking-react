@@ -1,9 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 
 // Check user's theme preference and apply it
 const theme = localStorage.getItem("theme") || "light";
 document.documentElement.setAttribute("data-theme", theme);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+// Use createRoot for rendering
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);

@@ -27,7 +27,7 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = async (req, res) => {
   try {
-    // Implementation for user logout
+    res.status(200).json({ message: "User logged out successfully - S" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

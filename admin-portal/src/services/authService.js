@@ -11,9 +11,18 @@ export const login = async (credentials) => {
   }
 };
 
-export const logout = () => {
-  // Clear user authentication data from local storage
-  localStorage.removeItem("accessToken");
+export const logout = async () => {
+  try {
+    // Make a POST request to logout endpoint
+    await axios.post(`${BASE_URL}/logout`);
+    // Clear user authentication data from local storage
+    localStorage.removeItem("accessToken");
+    console.log("User logged out successfully");
+  } catch (error) {
+    console.error("Error logging out:", error);
+    // Handle error logging out
+    throw error;
+  }
 };
 
 export const isAuthenticated = () => {
