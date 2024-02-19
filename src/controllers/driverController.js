@@ -1,5 +1,3 @@
-// File: src/controllers/driverController.js
-
 const Driver = require("../models/Driver");
 
 exports.updateDriverLocation = async (req, res) => {

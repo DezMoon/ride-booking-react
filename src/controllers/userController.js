@@ -28,3 +28,16 @@ exports.getUserProfile = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.updateUserProfile = async (req, res) => {
+  const { userId } = req.params;
+  const { username, email } = req.body;
+  try {
+    // Update user profile in the database
+    await User.findByIdAndUpdate(userId, { username, email });
+    res.status(200).json({ message: "User profile updated successfully" });
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

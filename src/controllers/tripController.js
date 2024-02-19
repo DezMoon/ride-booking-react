@@ -44,3 +44,15 @@ exports.updateTripStatus = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.getTripHistory = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    // Fetch trip history for the user from the database
+    const tripHistory = await Trip.find({ user: userId });
+    res.status(200).json(tripHistory);
+  } catch (error) {
+    console.error("Error fetching trip history:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

@@ -9,5 +9,6 @@ router.get(
   authMiddleware.authenticateUser,
   userController.getUserProfile
 );
+router.put("/:userId", userController.updateUserProfile);
 
 module.exports = router;
