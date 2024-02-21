@@ -17,12 +17,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { accessToken } = await login(credentials);
-      localStorage.setItem("accessToken", accessToken); // Store token
-      navigate("/dashboard"); // Use navigate to redirect
+      await login(credentials); // No need to store token locally
+      navigate("/dashboard"); // Redirect to dashboard upon successful login
     } catch (error) {
       console.error("Login failed:", error);
-      // Add error message
+      // Handle login failure
     }
   };
 

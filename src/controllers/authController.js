@@ -1,9 +1,8 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
+const { generateToken } = require("../../helpers/authHelper");
 
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
-  const jwtSecret = process.env.JWT_SECRET;
 
   try {
     // Check if user exists
@@ -14,11 +13,16 @@ exports.loginUser = async (req, res) => {
     }
 
     // Generate token
-    const token = jwt.sign({ userId: user._id }, jwtSecret, {
-      expiresIn: "1h",
+    const token = generateToken(user);
+
+    // Set token as HTTP-only cookie
+    res.cookie("access_token", token, {
+      httpOnly: true,
+      secure: false, // Set to true if using HTTPS
+      // Set to 'strict' for more security
     });
 
-    res.json({ token });
+    res.json({ message: "Login successful" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -27,7 +31,9 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = async (req, res) => {
   try {
-    res.status(200).json({ message: "User logged out successfully - S" });
+    // Clear the access token cookie
+    res.clearCookie("access_token");
+    res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

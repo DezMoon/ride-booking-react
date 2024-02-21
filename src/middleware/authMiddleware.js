@@ -5,13 +5,14 @@ exports.authenticateUser = (req, res, next) => {
   // Example: Verify JWT token from request headers
 
   const token = req.headers.authorization;
+  const jwtSecret = process.env.JWT_SECRET;
 
   if (!token) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
   try {
-    const decoded = jwt.verify(token, "your-secret-key");
+    const decoded = jwt.verify(token, jwtSecret);
 
     // Extract user information from decoded token
     const { user, role } = decoded; // Assuming 'user' and 'role' fields are present

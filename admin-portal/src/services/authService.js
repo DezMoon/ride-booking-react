@@ -13,19 +13,26 @@ export const login = async (credentials) => {
 
 export const logout = async () => {
   try {
-    // Make a POST request to logout endpoint
+    // Call logout endpoint on the backend to clear the session
     await axios.post(`${BASE_URL}/logout`);
-    // Clear user authentication data from local storage
-    localStorage.removeItem("accessToken");
-    console.log("User logged out successfully");
   } catch (error) {
-    console.error("Error logging out:", error);
-    // Handle error logging out
-    throw error;
+    console.error("Logout failed:", error);
   }
 };
 
 export const isAuthenticated = () => {
-  // Check if user is authenticated
-  return localStorage.getItem("accessToken") !== null;
+  // Check if the 'access_token' cookie exists
+  const cookies = document.cookie.split(";");
+  const accessTokenCookie = cookies.find((cookie) =>
+    cookie.trim().startsWith("access_token=")
+  );
+
+  // If 'access_token' cookie exists, return true
+  if (accessTokenCookie) {
+    console.log("Is authenticated? true");
+    return true;
+  } else {
+    console.log("Is authenticated? false");
+    return false;
+  }
 };

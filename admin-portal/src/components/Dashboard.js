@@ -1,4 +1,3 @@
-// components/Dashboard.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UserCountWidget from "./DashboardWidgets/UserCountWidget";
@@ -11,13 +10,22 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
+        const token = localStorage.getItem("accessToken");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
         const usersResponse = await axios.get(
-          "http://localhost:5000/api/users/count"
+          "http://localhost:5000/api/users/count",
+          config
         );
         setUserCount(usersResponse.data.count);
 
         const tripsResponse = await axios.get(
-          "http://localhost:5000/api/trips/count"
+          "http://localhost:5000/api/trips/count",
+          config
         );
         setTripCount(tripsResponse.data.count);
       } catch (error) {

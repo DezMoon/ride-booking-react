@@ -1,5 +1,6 @@
 import React from "react";
 import NavigationBar from "./NavigationBar";
+import { Routes } from "react-router-dom";
 
 const Layout = ({ children }) => {
   return (
@@ -8,7 +9,9 @@ const Layout = ({ children }) => {
         <div className="col-2">
           <NavigationBar />
         </div>
-        <div className="col-10">{children}</div>
+        <div className="col-10">
+          <Routes>{children}</Routes>
+        </div>
       </div>
     </div>
   );
